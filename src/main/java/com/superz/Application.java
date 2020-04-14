@@ -1,9 +1,6 @@
 package com.superz;
 
-import com.superz.classstruct.ConstantPool;
-import com.superz.classstruct.Magic;
-import com.superz.classstruct.MajorVersion;
-import com.superz.classstruct.MinorVersion;
+import com.superz.classstruct.*;
 import com.superz.util.Common;
 
 import java.util.List;
@@ -46,6 +43,12 @@ public class Application
         ConstantPool constant_pool = new ConstantPool();
         offset = constant_pool.read(byteCodes, cursor);
         constant_pool.print();
+        cursor += offset;
+
+        // 访问标志
+        AccessFlags accessFlags = new AccessFlags();
+        offset = accessFlags.read(byteCodes, cursor);
+        accessFlags.print();
         cursor += offset;
     }
 }
