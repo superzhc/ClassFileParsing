@@ -50,5 +50,23 @@ public class Application
         offset = accessFlags.read(byteCodes, cursor);
         accessFlags.print();
         cursor += offset;
+
+        // 类索引
+        ThisClass thisClass = new ThisClass();
+        offset = thisClass.read(byteCodes, cursor);
+        thisClass.print();
+        cursor += offset;
+
+        // 父类索引
+        SuperClass superClass = new SuperClass();
+        offset = superClass.read(byteCodes, cursor);
+        superClass.print();
+        cursor += offset;
+
+        // 接口索引
+        Interfaces interfaces = new Interfaces();
+        offset = interfaces.read(byteCodes, cursor);
+        interfaces.print();
+        cursor += offset;
     }
 }
