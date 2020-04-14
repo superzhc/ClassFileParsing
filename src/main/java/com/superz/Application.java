@@ -46,5 +46,9 @@ public class Application
         // 接口索引
         Interfaces interfaces = new Interfaces();
         byteCodesStream.readAndPrint(interfaces);
+
+        // 字段集合
+        Fields fields = new Fields();
+        byteCodesStream.readAndPrint(fields);
     }
 }

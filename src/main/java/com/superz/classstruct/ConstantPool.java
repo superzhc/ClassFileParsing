@@ -67,6 +67,7 @@ public class ConstantPool extends AbstractDataItem implements IReader
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append(SPLIT).append(Enter);
         sb.append(constant_pool_count.toString()).append(Enter);
         for (int i = 0, len = infos.length; i < len; i++) {
             CONSTANT_info_Struct info = infos[i];
@@ -74,9 +75,9 @@ public class ConstantPool extends AbstractDataItem implements IReader
                 continue;
 
             // 加个分隔符
-            sb.append(TAB).append("---------------------------").append(Enter);
+            sb.append(TAB).append(SPLIT).append(Enter);
 
-            sb.append((i + 1) + ".").append(info.toString()).append(Enter);
+            sb.append(TAB).append((i + 1) + ".").append(info.toString()).append(Enter);
         }
         return sb.toString();
     }

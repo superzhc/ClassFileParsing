@@ -2,19 +2,19 @@ package com.superz.struct;
 
 import java.util.List;
 
-import com.superz.IReader;
+import com.superz.AbstractStruct;
+import com.superz.classstruct.Attributes;
 import com.superz.util.Common;
 
 /**
  * 2020年04月14日 superz add
  */
-public abstract class AbstractFieldAndMethodStruct implements IReader
+public abstract class AbstractFieldAndMethodStruct extends AbstractStruct
 {
     protected byte[] access_flags;
     protected byte[] name_index;
     protected byte[] descriptor_index;
-    protected byte[] attributes_count;
-    protected byte[] attributes;
+    protected Attributes attributes;
 
     @Override
     public int read(List<Byte> byteCodes, int cursor) {
@@ -32,12 +32,9 @@ public abstract class AbstractFieldAndMethodStruct implements IReader
         descriptor_index = Common.subBytesArray(byteCodes, cursor + offset, 2);
         offset += 2;
 
-        // attribute_count:u2
-        attributes_count = Common.subBytesArray(byteCodes, cursor + offset, 2);
-        offset += 2;
-
-        // attributes
-        // TODO 属性的解析
+        attributes = new Attributes();
+        int offset1 = attributes.read(byteCodes, cursor + offset);
+        offset += offset1;
 
         return offset;
     }
@@ -55,8 +52,10 @@ public abstract class AbstractFieldAndMethodStruct implements IReader
         }
         sb.append(Enter);
 
-        sb.append(info() + "的简单名称").append(":").append(name_index).append(Enter);
-        sb.append(info() + "的描述符").append(":").append(descriptor_index).append(Enter);
+        sb.append(TAB).append(info() + "的简单名称").append(":").append(new String(name_index)).append(Enter);
+        sb.append(TAB).append(info() + "的描述符").append(":").append(new String(descriptor_index)).append(Enter);
+        sb.append(TAB).append(info() + "的属性信息").append(":").append(Enter).append(TAB).append(TAB)
+                .append(attributes.toString());
 
         return sb.toString();
     }

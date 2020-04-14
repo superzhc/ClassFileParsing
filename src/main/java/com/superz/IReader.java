@@ -6,13 +6,14 @@ public interface IReader
 {
     String TAB = "  ";
     String Enter = "\n";
+    String SPLIT = "------------------------------------";
 
-    int read(final List<Byte> byteCodes,final int cursor);
+    int read(final List<Byte> byteCodes, final int cursor);
 
     /**
      * 添加个打印
      */
-    default void print(){
+    default void print() {
         System.out.println(this.toString());
     }
 }

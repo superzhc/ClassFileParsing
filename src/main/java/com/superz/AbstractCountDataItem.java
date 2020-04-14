@@ -5,6 +5,7 @@ import com.superz.util.Common;
 import java.util.List;
 
 /**
+ * 读取数据项中集合的数量
  * 2020年04月14日 superz add
  */
 public abstract class AbstractCountDataItem extends AbstractDataItem implements IReader
@@ -24,7 +25,7 @@ public abstract class AbstractCountDataItem extends AbstractDataItem implements 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name.toUpperCase()).append("(" + description + ")").append(":").append(Common.bytes2Dec(count));
+        sb.append(name.toUpperCase()).append("(" + description + ")").append(":").append(Common.bytes2Dec(count)).append(Enter);
         return sb.toString();
     }
 }
