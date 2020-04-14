@@ -39,13 +39,16 @@ public class ConstantPool extends AbstractDataItem implements IReader
         int count = Common.bytes2Dec(constant_pool_count.count);
         try {
             infos = new CONSTANT_info_Struct[count];
-            for (int i = 0; i < count - 1; i++) {
+            for (int i = 0; i < count - 1;) {
                 // 常量标志位
-                // Fixme 通过javap来查看,常量项是跳跃式的，跳过了7和9之间的8???
+                // Bug: 通过javap来查看,常量项是跳跃式的，跳过了7和9之间的8???
+                /*
+                 * 在Class文件的常量池中，所有的8字节的常量都占两个表成员（项）的空间。
+                 * 如果一个CONSTANT_Long_info或CONSTANT_Double_info结构的项在常量池中的索引为n，则常量池中下一个有效的项的索引为n+2
+                 * ，此时常量池中索引为n+1的项有效但必须被认为不可用。
+                 */
                 int tag = Common.bytes2Dec(Common.subBytesArray(byteCodes, constant_pool_cursor, 1));
                 CONSTANT_Tag constant_tag = CONSTANT_Tag.getByTag(tag);
-                if (null == constant_tag)// 先跳过处理
-                    break;
                 CONSTANT_info_Struct struct = constant_tag.getClazz().newInstance();
                 struct.setConstant_tag(constant_tag);
                 int offset1 = struct.read(byteCodes, constant_pool_cursor);
@@ -55,6 +58,12 @@ public class ConstantPool extends AbstractDataItem implements IReader
                 offset += offset1;
                 // 获取下一个常量项的起始游标
                 constant_pool_cursor += offset1;
+
+                // 修复索引跳跃的bug
+                if (tag == 5 || tag == 6)
+                    i += 2;
+                else
+                    i += 1;
             }
         }
         catch (Exception e) {
