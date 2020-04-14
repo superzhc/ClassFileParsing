@@ -1,12 +1,10 @@
 package com.superz.classstruct;
 
+import java.util.List;
+
 import com.superz.AbstractDataItem;
 import com.superz.IReader;
-import com.superz.constanttypestruct.CONSTANT_Class_info_Struct;
-import com.superz.constanttypestruct.CONSTANT_Tag;
 import com.superz.util.Common;
-
-import java.util.List;
 
 /**
  * 2020年04月14日 superz add
@@ -14,7 +12,6 @@ import java.util.List;
 public class Interfaces extends AbstractDataItem implements IReader
 {
     private InterfacesCount interface_count;
-    // private CONSTANT_Class_info_Struct[] interfaces;
     private byte[][] interfaces;
 
     @Override
@@ -38,13 +35,6 @@ public class Interfaces extends AbstractDataItem implements IReader
         if (count > 0) {
             interfaces = new byte[count][2];
             for (int i = 0; i < count; i++) {
-                // Fixme 这样读是有问题的
-                // CONSTANT_Class_info_Struct constant_class_info_struct = new
-                // CONSTANT_Class_info_Struct();
-                // constant_class_info_struct.setConstant_tag(CONSTANT_Tag.CONSTANT_Class_info);
-                // int offset1 = constant_class_info_struct.read(byteCodes, interface_cursor);
-                // interfaces[i] = constant_class_info_struct;
-
                 interfaces[i] = Common.subBytesArray(byteCodes, interface_cursor, 2);
 
                 offset += 2;

@@ -1,72 +1,50 @@
 package com.superz;
 
 import com.superz.classstruct.*;
-import com.superz.util.Common;
-
-import java.util.List;
+import com.superz.util.ByteCodesStream;
 
 /**
  * 2020年04月14日 superz add
  */
 public class Application
 {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         if (args.length < 1)
             throw new RuntimeException("请输入待解析的文件");
 
         String classpath = args[0];
-        List<Byte> byteCodes = Common.getBytes(classpath);
-
-        // 定义游标
-        int cursor = 0;
+        ByteCodesStream byteCodesStream = new ByteCodesStream(classpath);
 
         // 魔数
         Magic magic = new Magic();
-        int offset = magic.read(byteCodes, cursor);
-        // System.out.println(magic.toString());
-        magic.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(magic);
 
         // 次版本号
         MinorVersion minor_version = new MinorVersion();
-        offset = minor_version.read(byteCodes, cursor);
-        minor_version.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(minor_version);
 
         // 主版本号
         MajorVersion major_version = new MajorVersion();
-        offset = major_version.read(byteCodes, cursor);
-        major_version.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(major_version);
 
         // 常量池
         ConstantPool constant_pool = new ConstantPool();
-        offset = constant_pool.read(byteCodes, cursor);
-        constant_pool.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(constant_pool);
 
         // 访问标志
         AccessFlags accessFlags = new AccessFlags();
-        offset = accessFlags.read(byteCodes, cursor);
-        accessFlags.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(accessFlags);
 
         // 类索引
         ThisClass thisClass = new ThisClass();
-        offset = thisClass.read(byteCodes, cursor);
-        thisClass.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(thisClass);
 
         // 父类索引
         SuperClass superClass = new SuperClass();
-        offset = superClass.read(byteCodes, cursor);
-        superClass.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(superClass);
 
         // 接口索引
         Interfaces interfaces = new Interfaces();
-        offset = interfaces.read(byteCodes, cursor);
-        interfaces.print();
-        cursor += offset;
+        byteCodesStream.readAndPrint(interfaces);
     }
 }
