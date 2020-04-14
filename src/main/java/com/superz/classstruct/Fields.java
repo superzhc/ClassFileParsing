@@ -2,6 +2,7 @@ package com.superz.classstruct;
 
 import java.util.List;
 
+import com.superz.AbstractCountDataItem;
 import com.superz.AbstractDataItem;
 import com.superz.IReader;
 import com.superz.struct.FieldStruct;
@@ -32,7 +33,7 @@ public class Fields extends AbstractDataItem implements IReader
         int field_cursor = cursor + offset;
 
         // 字段数量
-        int count = Common.bytes2Dec(fields_count.count);
+        int count = Common.bytes2Dec(fields_count.getCount());
 
         // 初始化字段容器
         fields = new FieldStruct[count];
@@ -60,28 +61,13 @@ public class Fields extends AbstractDataItem implements IReader
         return sb.toString();
     }
 
-    public static class FieldsCount extends AbstractDataItem implements IReader
+    public static class FieldsCount extends AbstractCountDataItem
     {
-        private byte[] count;
-
         @Override
         protected void init() {
             name = "fields_count";
             length = 2;
             description = "字段个数";
-        }
-
-        @Override
-        public int read(List<Byte> byteCodes, int cursor) {
-            count = Common.subBytesArray(byteCodes, cursor, length);
-            return length;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(name.toUpperCase()).append("(" + description + ")").append(":").append(Common.bytes2Dec(count));
-            return sb.toString();
         }
     }
 }

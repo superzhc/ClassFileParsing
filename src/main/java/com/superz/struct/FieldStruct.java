@@ -1,24 +1,18 @@
 package com.superz.struct;
 
-import com.superz.IReader;
-import com.superz.accessflag.FieldAccessFlagEnum;
-import com.superz.util.Common;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.superz.accessflag.FieldAccessFlagEnum;
+import com.superz.util.Common;
 
 /**
  * 2020年04月14日 superz add
  */
-public class FieldStruct implements IReader
+public class FieldStruct extends AbstractFieldAndMethodStruct
 {
-    private byte[] access_flags;
-    private byte[] name_index;
-    private byte[] descriptor_index;
-    private byte[] attributes_count;
-    private byte[] attributes;
-
-    private FieldAccessFlagEnum[] getAccessFlags() {
+    @Override
+    public FieldAccessFlagEnum[] getAccessFlags() {
         String hex = Common.bytes2Hex(access_flags);
 
         List<FieldAccessFlagEnum> lst = new ArrayList<>();
@@ -83,42 +77,7 @@ public class FieldStruct implements IReader
     }
 
     @Override
-    public int read(List<Byte> byteCodes, int cursor) {
-        int offset = 0;
-
-        // access_flags:u2
-        access_flags = Common.subBytesArray(byteCodes, cursor + offset, 2);
-        offset += 2;
-
-        // name_index:u2
-        name_index = Common.subBytesArray(byteCodes, cursor + offset, 2);
-        offset += 2;
-
-        // descriptor_index:u2
-        descriptor_index = Common.subBytesArray(byteCodes, cursor + offset, 2);
-        offset += 2;
-
-        // attribute_count:u2
-        attributes_count = Common.subBytesArray(byteCodes, cursor + offset, 2);
-        offset += 2;
-
-        // attributes
-        // TODO 属性的解析
-
-        return offset;
-    }
-
-    @Override public String toString() {
-        StringBuilder sb=new StringBuilder();
-        sb.append("字段访问标志：");
-        for(FieldAccessFlagEnum accessFlagEnum:getAccessFlags()){
-            sb.append(accessFlagEnum.name()).append(",");// Fixme 最后会多一个逗号~~
-        }
-        sb.append(Enter);
-
-        sb.append("字段的简单名称").append(":").append(name_index).append(Enter);
-        sb.append("字段和方法的描述符").append(":").append(descriptor_index).append(Enter);
-
-        return sb.toString();
+    public String info() {
+        return "字段";
     }
 }
