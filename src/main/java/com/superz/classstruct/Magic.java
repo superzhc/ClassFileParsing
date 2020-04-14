@@ -30,7 +30,7 @@ public class Magic extends AbstractDataItem implements IReader
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(description).append(":").append(Common.bytes2Hex(magic));
+        sb.append(name.toUpperCase()).append("("+description+")").append(":").append(Common.bytes2Hex(magic));
         return sb.toString();
     }
 }

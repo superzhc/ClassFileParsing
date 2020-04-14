@@ -58,6 +58,11 @@ public class Common
         return bs;
     }
 
+    public static int bytes2Dec(byte... bytes) {
+        String hex = bytes2Hex(bytes);
+        return Integer.parseInt(hex, 16);
+    }
+
     public static String bytes2Hex(byte... bytes) {
         StringBuilder result = new StringBuilder();
         for (byte b : bytes) {
