@@ -48,7 +48,25 @@ public class Common
         return bs;
     }
 
-    public static String byteToHex(byte b) {
+    public static byte[] subBytesArray(List<Byte> bytes, int start, int length) {
+        byte[] bs = new byte[length];
+        int i = 0;
+        while (i < length) {
+            bs[i] = bytes.get(start + i);
+            i++;
+        }
+        return bs;
+    }
+
+    public static String bytes2Hex(byte... bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes) {
+            result.append(byte2Hex(b));
+        }
+        return result.toString();
+    }
+
+    private static String byte2Hex(byte b) {
         String hex = Integer.toHexString(b & 0xFF);
         if (hex.length() < 2) {
             hex = "0" + hex;

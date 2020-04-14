@@ -12,5 +12,33 @@ public abstract class AbstractDataItem
     /* 数据项描述 */
     protected String description;
 
+    public AbstractDataItem(){
+        init();
+    }
+
     protected abstract void init();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
