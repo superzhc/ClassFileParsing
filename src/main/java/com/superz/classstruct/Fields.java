@@ -34,11 +34,30 @@ public class Fields extends AbstractDataItem implements IReader
         // 字段数量
         int count = Common.bytes2Dec(fields_count.count);
 
+        // 初始化字段容器
+        fields = new FieldStruct[count];
         for (int i = 0; i < count; i++) {
+            FieldStruct field = new FieldStruct();
+            int offset1 = field.read(byteCodes, field_cursor);
+            fields[i] = field;
 
+            offset += offset1;
+            field_cursor += offset1;
         }
 
         return offset;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(fields_count.toString());
+        for (int i = 0, len = fields.length; i < len; i++) {
+            FieldStruct field = fields[i];
+            sb.append(field.toString());
+            sb.append("--------------------------");
+        }
+        return sb.toString();
     }
 
     public static class FieldsCount extends AbstractDataItem implements IReader
