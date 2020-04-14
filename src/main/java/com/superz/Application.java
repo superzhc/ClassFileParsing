@@ -1,5 +1,6 @@
 package com.superz;
 
+import com.superz.classstruct.ConstantPool;
 import com.superz.classstruct.Magic;
 import com.superz.classstruct.MajorVersion;
 import com.superz.classstruct.MinorVersion;
@@ -39,6 +40,12 @@ public class Application
         MajorVersion major_version = new MajorVersion();
         offset = major_version.read(byteCodes, cursor);
         major_version.print();
+        cursor += offset;
+
+        // 常量池
+        ConstantPool constant_pool = new ConstantPool();
+        offset = constant_pool.read(byteCodes, cursor);
+        constant_pool.print();
         cursor += offset;
     }
 }

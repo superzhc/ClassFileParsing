@@ -4,6 +4,9 @@ import java.util.List;
 
 public interface IReader
 {
+    String TAB = "  ";
+    String Enter = "\n";
+
     int read(final List<Byte> byteCodes,final int cursor);
 
     /**
