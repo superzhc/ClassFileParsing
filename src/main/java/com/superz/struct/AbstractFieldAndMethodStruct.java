@@ -52,8 +52,8 @@ public abstract class AbstractFieldAndMethodStruct extends AbstractStruct
         }
         sb.append(Enter);
 
-        sb.append(TAB).append(info() + "的简单名称").append(":").append(new String(name_index)).append(Enter);
-        sb.append(TAB).append(info() + "的描述符").append(":").append(new String(descriptor_index)).append(Enter);
+        sb.append(TAB).append(info() + "的简单名称").append(":").append(Common.bytes2Dec(name_index)).append(Enter);
+        sb.append(TAB).append(info() + "的描述符").append(":").append(Common.bytes2Hex(descriptor_index)).append(Enter);
         sb.append(TAB).append(info() + "的属性信息").append(":").append(Enter).append(TAB).append(TAB)
                 .append(attributes.toString());
 

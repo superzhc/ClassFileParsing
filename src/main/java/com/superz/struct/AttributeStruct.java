@@ -37,7 +37,7 @@ public class AttributeStruct extends AbstractStruct
 
     @Override public String toString() {
         StringBuilder sb=new StringBuilder();
-        sb.append("属性的所占字节为：").append(dataLength);
+        sb.append("属性的所占字节为：").append(dataLength).append(Enter);
         return sb.toString();
     }
 }

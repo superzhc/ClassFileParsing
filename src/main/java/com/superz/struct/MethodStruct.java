@@ -1,11 +1,10 @@
 package com.superz.struct;
 
-import com.superz.accessflag.FieldAccessFlagEnum;
-import com.superz.accessflag.MethodAccessFlagEnum;
-import com.superz.util.Common;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.superz.accessflag.MethodAccessFlagEnum;
+import com.superz.util.Common;
 
 /**
  * 2020年04月14日 superz add

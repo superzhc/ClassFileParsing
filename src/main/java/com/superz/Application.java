@@ -50,5 +50,9 @@ public class Application
         // 字段集合
         Fields fields = new Fields();
         byteCodesStream.readAndPrint(fields);
+
+        // 方法集合
+        Methods methods=new Methods();
+        byteCodesStream.readAndPrint(methods);
     }
 }
